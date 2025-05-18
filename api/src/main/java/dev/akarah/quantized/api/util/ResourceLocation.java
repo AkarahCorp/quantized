@@ -29,7 +29,6 @@ public class ResourceLocation {
         return this.path;
     }
 
-
     public ResourceLocation withNamespace(String newNamespace) {
         return new ResourceLocation(newNamespace, path);
     }
