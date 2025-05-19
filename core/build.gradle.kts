@@ -1,5 +1,6 @@
 plugins {
     id("java")
+    id("org.javamodularity.moduleplugin") version "1.8.15"
 }
 
 group = "dev.akarah"
@@ -20,4 +21,8 @@ dependencies {
 
 tasks.test {
     useJUnitPlatform()
+}
+
+java {
+    modularity.inferModulePath.set(true)
 }
