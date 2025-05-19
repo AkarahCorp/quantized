@@ -3,6 +3,7 @@ plugins {
     id("xyz.jpenilla.run-paper") version "2.3.1"
     id("io.papermc.paperweight.userdev") version "2.0.0-beta.14"
     id("org.javamodularity.moduleplugin") version "1.8.15"
+    id("com.gradleup.shadow") version "9.0.0-beta13"
 }
 
 group = "dev.akarah"
@@ -27,7 +28,7 @@ dependencies {
 
     implementation(project(":api"))
     implementation(project(":core"))
-    implementation("com.mojang:datafixerupper:8.0.16")
+    compileOnly("com.mojang:datafixerupper:8.0.16")
 }
 
 tasks {
