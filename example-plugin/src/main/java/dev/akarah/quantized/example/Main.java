@@ -1,6 +1,7 @@
 package dev.akarah.quantized.example;
 
 import dev.akarah.quantized.api.plugin.Plugin;
+import dev.akarah.quantized.api.util.MinecraftServer;
 import dev.akarah.quantized.api.util.ResourceLocation;
 
 public class Main implements Plugin {
@@ -12,6 +13,8 @@ public class Main implements Plugin {
     @Override
     public void load() {
         System.out.println("I've been loaded :)");
+
+        MinecraftServer.get().getScheduler().execute(() -> System.out.println("Executing on main thread :D"));
     }
 
     @Override
