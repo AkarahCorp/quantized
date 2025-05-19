@@ -15,5 +15,6 @@ public class Main extends JavaPlugin {
                 scheduler.tick();
             }
         }, 1, 1);
+        Bukkit.getPluginManager().registerEvents(new EventFiring(), this);
     }
 }

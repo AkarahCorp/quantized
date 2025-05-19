@@ -2,6 +2,8 @@ package dev.akarah.quantized.core;
 
 import dev.akarah.quantized.api.plugin.Plugin;
 import dev.akarah.quantized.api.registry.BuiltInRegistries;
+import dev.akarah.quantized.api.scheduler.EventHandler;
+import dev.akarah.quantized.api.util.MinecraftServer;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -44,6 +46,15 @@ public class PluginLoader {
                                     var constructor = clazz.getConstructor();
                                     var instance = (Plugin) constructor.newInstance();
 
+                                    BuiltInRegistries.PLUGIN.register(instance.name(), instance);
+                                    instance.load();
+                                }
+
+                                if(interfaces.contains(EventHandler.class)) {
+                                    var constructor = clazz.getConstructor();
+                                    var instance = (EventHandler) constructor.newInstance();
+
+                                    MinecraftServer.get().eventBus().registerEventHandler(instance);
                                     BuiltInRegistries.PLUGIN.register(instance.name(), instance);
                                     instance.load();
                                 }
