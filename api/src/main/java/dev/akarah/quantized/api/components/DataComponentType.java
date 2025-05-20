@@ -3,6 +3,8 @@ package dev.akarah.quantized.api.components;
 import com.mojang.serialization.Codec;
 import dev.akarah.quantized.api.util.ResourceLocation;
 
+import java.util.Optional;
+
 /**
  * A key to accessing a property in a {@link DataComponentMap}
  * @param <T> The type of the property to access.
@@ -12,7 +14,7 @@ public interface DataComponentType<T> {
      * Gets the codec associated with the property.
      * @return The codec associated with the property.
      */
-    Codec<T> codec();
+    Optional<Codec<T>> customCodec();
 
     /**
      * Gets the name associated with the property.
@@ -31,7 +33,7 @@ public interface DataComponentType<T> {
         Codec<T> codec;
         ResourceLocation name;
 
-        public Builder<T> persistent(Codec<T> codec) {
+        public Builder<T> custom(Codec<T> codec) {
             this.codec = codec;
             return this;
         }
@@ -42,12 +44,10 @@ public interface DataComponentType<T> {
         }
 
         public SimpleType<T> build() {
-            if(this.codec == null) {
-                throw new IllegalArgumentException("All DataComponentTypes must have a codec.");
-            }
             if(this.name == null) {
                 throw new IllegalArgumentException("All DataComponentTypes must have a name.");
             }
+
             var t = new SimpleType<T>();
             t.codec = this.codec;
             t.name = this.name;
@@ -60,8 +60,8 @@ public interface DataComponentType<T> {
         ResourceLocation name;
 
         @Override
-        public Codec<T> codec() {
-            return this.codec;
+        public Optional<Codec<T>> customCodec() {
+            return Optional.ofNullable(this.codec);
         }
 
         @Override

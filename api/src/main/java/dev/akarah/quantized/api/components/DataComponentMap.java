@@ -12,12 +12,16 @@ public interface DataComponentMap {
     <T> Optional<T> get(DataComponentType<T> dataComponentType);
     Set<DataComponentType<?>> keySet();
 
+    interface Mutable extends DataComponentMap {
+        <T> void set(DataComponentType<T> type, T value);
+    }
+
     static Builder builder() { return new Builder(); }
 
-    class Builder {
+    class Builder implements DataComponentMap.Mutable {
         Map<DataComponentType<?>, Object> map = new Reference2ObjectArrayMap<>();
 
-        public <T> Builder set(DataComponentType<T> type, T value) {
+        public <T> Builder with(DataComponentType<T> type, T value) {
             this.setUnchecked(type, value);
             return this;
         }
@@ -33,9 +37,25 @@ public interface DataComponentMap {
         public DataComponentMap build() {
             return new SimpleMap(Collections.unmodifiableMap(this.map));
         }
+
+        @Override
+        public <T> void set(DataComponentType<T> type, T value) {
+            this.map.put(type, value);
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public <T> Optional<T> get(DataComponentType<T> dataComponentType) {
+            return (Optional<T>) Optional.ofNullable(this.map.get(dataComponentType));
+        }
+
+        @Override
+        public Set<DataComponentType<?>> keySet() {
+            return this.map.keySet();
+        }
     }
 
-    record SimpleMap(Map<DataComponentType<?>, ?> map) implements DataComponentMap {
+    record SimpleMap(Map<DataComponentType<?>, Object> map) implements DataComponentMap.Mutable {
         @Override
         @SuppressWarnings("unchecked")
         public <T> Optional<T> get(DataComponentType<T> dataComponentType) {
@@ -45,6 +65,11 @@ public interface DataComponentMap {
         @Override
         public Set<DataComponentType<?>> keySet() {
             return this.map.keySet();
+        }
+
+        @Override
+        public <T> void set(DataComponentType<T> type, T value) {
+            this.map.put(type, value);
         }
     }
 }

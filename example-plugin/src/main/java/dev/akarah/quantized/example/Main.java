@@ -1,5 +1,6 @@
 package dev.akarah.quantized.example;
 
+import dev.akarah.quantized.api.components.DataComponentMap;
 import dev.akarah.quantized.api.plugin.Plugin;
 import dev.akarah.quantized.api.util.MinecraftServer;
 import dev.akarah.quantized.api.util.ResourceLocation;
