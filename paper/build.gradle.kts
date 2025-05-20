@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("xyz.jpenilla.run-paper") version "2.3.1"
-    id("io.papermc.paperweight.userdev") version "2.0.0-beta.14"
+    id("io.papermc.paperweight.userdev") version "2.0.0-beta.17"
     id("org.javamodularity.moduleplugin") version "1.8.15"
     id("com.gradleup.shadow") version "9.0.0-beta13"
 }

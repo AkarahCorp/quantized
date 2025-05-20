@@ -55,8 +55,6 @@ public class PluginLoader {
                                     var instance = (EventHandler) constructor.newInstance();
 
                                     MinecraftServer.get().eventBus().registerEventHandler(instance);
-                                    BuiltInRegistries.PLUGIN.register(instance.name(), instance);
-                                    instance.load();
                                 }
                             } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
                                      IllegalAccessException | InstantiationException e) {
