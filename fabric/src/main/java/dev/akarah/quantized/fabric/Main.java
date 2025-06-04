@@ -19,6 +19,8 @@ public class Main implements ModInitializer {
         MinecraftServerSetter.setServer(server);
         server.getRegistryAccess();
 
+
+
         try {
             PluginLoader.loadAllJars();
         } catch (IOException e) {

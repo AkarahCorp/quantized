@@ -45,6 +45,7 @@ public class PluginLoader {
                                 if(interfaces.contains(Plugin.class)) {
                                     var constructor = clazz.getConstructor();
                                     var instance = (Plugin) constructor.newInstance();
+                                    instance.load();
 
                                     MinecraftServer.registryAccess()
                                             .getOrThrow(RegistryKeys.PLUGIN)

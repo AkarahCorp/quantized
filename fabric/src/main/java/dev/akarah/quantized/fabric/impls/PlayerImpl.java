@@ -2,6 +2,7 @@ package dev.akarah.quantized.fabric.impls;
 
 import dev.akarah.quantized.api.dimension.Entity;
 import dev.akarah.quantized.api.dimension.Player;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.level.ServerPlayer;
 

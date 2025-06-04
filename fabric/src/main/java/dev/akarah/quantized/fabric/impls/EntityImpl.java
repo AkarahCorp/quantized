@@ -1,11 +1,14 @@
 package dev.akarah.quantized.fabric.impls;
 
 import dev.akarah.quantized.api.components.DataComponentType;
+import dev.akarah.quantized.api.dimension.Dimension;
 import dev.akarah.quantized.api.dimension.Entity;
 import dev.akarah.quantized.api.dimension.Player;
 import dev.akarah.quantized.api.util.ResourceLocation;
 import dev.akarah.quantized.api.util.position.EulerAngles;
 import dev.akarah.quantized.api.util.position.FinePosition;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -33,6 +36,11 @@ public class EntityImpl implements Entity {
                 this.entity.getYRot(),
                 this.entity.getXRot()
         );
+    }
+
+    @Override
+    public Dimension dimension() {
+        return new DimensionImpl((ServerLevel) this.entity.level());
     }
 
     @Override

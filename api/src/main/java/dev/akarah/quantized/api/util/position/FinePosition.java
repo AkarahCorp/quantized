@@ -43,6 +43,10 @@ public class FinePosition {
         return FinePosition.of(x, y, z);
     }
 
+    public BlockPosition blockPosition() {
+        return BlockPosition.of((int) x, (int) y, (int) z);
+    }
+
     @Override
     public String toString() {
         return "FinePosition[x=" + this.x + ", y=" + this.y + ", z=" + this.z + "]";

@@ -2,7 +2,7 @@ package dev.akarah.quantized.fabric.registry;
 
 import dev.akarah.quantized.api.registry.Registry;
 import dev.akarah.quantized.api.util.ResourceLocation;
-import dev.akarah.quantized.fabric.impls.Converters;
+import dev.akarah.quantized.fabric.convert.Converters;
 
 import java.util.Optional;
 import java.util.Set;

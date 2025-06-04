@@ -10,6 +10,7 @@ import java.util.Optional;
 public interface Entity extends DataComponentMap.Mutable {
     FinePosition position();
     EulerAngles rotation();
+    Dimension dimension();
 
     ResourceLocation entityType();
     Optional<Player> player();

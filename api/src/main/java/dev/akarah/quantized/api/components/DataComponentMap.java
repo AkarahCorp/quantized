@@ -18,6 +18,18 @@ public interface DataComponentMap {
 
     static Builder builder() { return new Builder(); }
 
+    DataComponentMap EMPTY = new DataComponentMap() {
+        @Override
+        public <T> Optional<T> get(DataComponentType<T> dataComponentType) {
+            return Optional.empty();
+        }
+
+        @Override
+        public Set<DataComponentType<?>> keySet() {
+            return Set.of();
+        }
+    };
+
     class Builder implements DataComponentMap.Mutable {
         Map<DataComponentType<?>, Object> map = new Reference2ObjectArrayMap<>();
 

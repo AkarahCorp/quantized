@@ -26,7 +26,6 @@ public class RegistryAccessImpl implements RegistryAccess {
     @Override
     @SuppressWarnings("unchecked")
     public <T> Optional<T> get(RegistryKey<T> registryKey) {
-        System.out.println("rk: " + registryKey);
         return Optional.ofNullable(this.registries.get(registryKey.registry()))
                 .flatMap(x -> x.get(registryKey.value()))
                 .map(x -> (T) x);
