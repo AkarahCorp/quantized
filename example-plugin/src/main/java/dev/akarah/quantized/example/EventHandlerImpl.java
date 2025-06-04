@@ -15,7 +15,10 @@ public class EventHandlerImpl implements EventHandler {
                         .keySet()
                         .toString()
         );
-        System.out.println("join");
+        player.sendMessage(
+                player.position()
+                        .toString()
+        );
     }
 
     @Override

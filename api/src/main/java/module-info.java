@@ -8,4 +8,5 @@ module dev.akarah.quantized.api {
     exports dev.akarah.quantized.api.registry;
     exports dev.akarah.quantized.api.scheduler;
     exports dev.akarah.quantized.api.util;
+    exports dev.akarah.quantized.api.util.position;
 }

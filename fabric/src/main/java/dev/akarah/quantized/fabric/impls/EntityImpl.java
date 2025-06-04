@@ -4,9 +4,8 @@ import dev.akarah.quantized.api.components.DataComponentType;
 import dev.akarah.quantized.api.dimension.Entity;
 import dev.akarah.quantized.api.dimension.Player;
 import dev.akarah.quantized.api.util.ResourceLocation;
-import dev.akarah.quantized.api.util.Rotation;
-import dev.akarah.quantized.api.util.WorldPos;
-import net.minecraft.server.level.ServerEntity;
+import dev.akarah.quantized.api.util.position.EulerAngles;
+import dev.akarah.quantized.api.util.position.FinePosition;
 import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
@@ -20,8 +19,8 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public WorldPos position() {
-        return new WorldPos(
+    public FinePosition position() {
+        return FinePosition.of(
                 this.entity.getX(),
                 this.entity.getY(),
                 this.entity.getZ()
@@ -29,8 +28,8 @@ public class EntityImpl implements Entity {
     }
 
     @Override
-    public Rotation rotation() {
-        return new Rotation(
+    public EulerAngles rotation() {
+        return EulerAngles.of(
                 this.entity.getYRot(),
                 this.entity.getXRot()
         );

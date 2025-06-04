@@ -1,17 +1,9 @@
 package dev.akarah.quantized.fabric.impls;
 
-import dev.akarah.quantized.api.components.DataComponentType;
 import dev.akarah.quantized.api.dimension.Entity;
 import dev.akarah.quantized.api.dimension.Player;
-import dev.akarah.quantized.api.util.ResourceLocation;
-import dev.akarah.quantized.api.util.Rotation;
-import dev.akarah.quantized.api.util.WorldPos;
 import net.minecraft.network.chat.Component;
-import net.minecraft.server.level.ServerEntity;
 import net.minecraft.server.level.ServerPlayer;
-
-import java.util.Optional;
-import java.util.Set;
 
 public class PlayerImpl extends EntityImpl implements Player {
     ServerPlayer player;
