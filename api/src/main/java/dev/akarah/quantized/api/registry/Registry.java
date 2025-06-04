@@ -6,30 +6,26 @@ import it.unimi.dsi.fastutil.objects.Object2ObjectOpenHashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.Set;
+import java.util.function.Consumer;
 
 public interface Registry<T> {
     Optional<T> get(ResourceLocation resourceLocation);
     Set<ResourceLocation> keySet();
     ResourceLocation name();
 
+    default T getOrThrow(ResourceLocation resourceLocation) {
+        return this.get(resourceLocation).orElseThrow();
+    }
+
+    default Registry<T> ifWritable(Consumer<WritableRegistry<T>> consumer) {
+        if(this instanceof WritableRegistry<T> writableRegistry) {
+            consumer.accept(writableRegistry);
+        }
+        return this;
+    }
+
     static <T> WritableRegistry<T> empty(ResourceLocation name) {
         return new SimpleMap<>(new Object2ObjectOpenHashMap<>(), name);
-    }
-
-    default Registry<T> freeze() {
-        return new Frozen<>(this, this.name());
-    }
-
-    record Frozen<T>(Registry<T> inner, ResourceLocation name) implements Registry<T> {
-        @Override
-        public Optional<T> get(ResourceLocation resourceLocation) {
-            return inner.get(resourceLocation);
-        }
-
-        @Override
-        public Set<ResourceLocation> keySet() {
-            return inner.keySet();
-        }
     }
 
     record SimpleMap<T>(Map<ResourceLocation, T> map, ResourceLocation name) implements WritableRegistry<T> {

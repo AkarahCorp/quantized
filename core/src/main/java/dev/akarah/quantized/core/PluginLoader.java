@@ -1,7 +1,8 @@
 package dev.akarah.quantized.core;
 
 import dev.akarah.quantized.api.plugin.Plugin;
-import dev.akarah.quantized.api.registry.BuiltInRegistries;
+import dev.akarah.quantized.api.registry.RegistryAccess;
+import dev.akarah.quantized.api.registry.RegistryKeys;
 import dev.akarah.quantized.api.scheduler.EventHandler;
 import dev.akarah.quantized.api.util.MinecraftServer;
 
@@ -14,7 +15,6 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.ServiceLoader;
 import java.util.jar.JarFile;
 
 public class PluginLoader {
@@ -46,15 +46,16 @@ public class PluginLoader {
                                     var constructor = clazz.getConstructor();
                                     var instance = (Plugin) constructor.newInstance();
 
-                                    BuiltInRegistries.PLUGIN.register(instance.name(), instance);
-                                    instance.load();
+                                    MinecraftServer.registryAccess()
+                                            .getOrThrow(RegistryKeys.PLUGIN)
+                                            .ifWritable(r -> r.register(instance.name(), instance));
                                 }
 
                                 if(interfaces.contains(EventHandler.class)) {
                                     var constructor = clazz.getConstructor();
                                     var instance = (EventHandler) constructor.newInstance();
 
-                                    MinecraftServer.get().eventBus().registerEventHandler(instance);
+                                    MinecraftServer.get().getEventBus().registerEventHandler(instance);
                                 }
                             } catch (ClassNotFoundException | InvocationTargetException | NoSuchMethodException |
                                      IllegalAccessException | InstantiationException e) {

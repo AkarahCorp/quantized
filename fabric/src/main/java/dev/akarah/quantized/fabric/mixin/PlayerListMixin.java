@@ -16,6 +16,6 @@ public class PlayerListMixin {
     @Inject(method = "placeNewPlayer", at = @At("TAIL"))
     public void placeNewPlayer(Connection connection, ServerPlayer serverPlayer, CommonListenerCookie commonListenerCookie, CallbackInfo ci) {
         var player = new PlayerImpl(serverPlayer);
-        MinecraftServer.get().eventBus().fireEvent(handler -> handler.onPlayerJoin(player));
+        MinecraftServer.get().getEventBus().fireEvent(handler -> handler.onPlayerJoin(player));
     }
 }

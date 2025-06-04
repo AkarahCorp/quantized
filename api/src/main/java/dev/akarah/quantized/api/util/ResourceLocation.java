@@ -1,5 +1,7 @@
 package dev.akarah.quantized.api.util;
 
+import java.util.Objects;
+
 public class ResourceLocation {
     String namespace;
     String path;
@@ -35,5 +37,22 @@ public class ResourceLocation {
 
     public ResourceLocation withPath(String newPath) {
         return new ResourceLocation(namespace, newPath);
+    }
+
+    @Override
+    public String toString() {
+        return this.namespace + ":" + this.path;
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other instanceof ResourceLocation rl
+                && this.path.equals(rl.path)
+                && this.namespace.equals(rl.namespace);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(this.namespace, this.path);
     }
 }
