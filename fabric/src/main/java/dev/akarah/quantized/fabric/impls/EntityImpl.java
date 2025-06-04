@@ -1,44 +1,50 @@
-package dev.akarah.quantized.paper.impls;
+package dev.akarah.quantized.fabric.impls;
 
 import dev.akarah.quantized.api.components.DataComponentType;
+import dev.akarah.quantized.api.dimension.Entity;
 import dev.akarah.quantized.api.dimension.Player;
 import dev.akarah.quantized.api.util.ResourceLocation;
 import dev.akarah.quantized.api.util.Rotation;
 import dev.akarah.quantized.api.util.WorldPos;
-import org.bukkit.Registry;
-import org.bukkit.entity.Entity;
+import net.minecraft.server.level.ServerEntity;
+import net.minecraft.server.level.ServerPlayer;
 
 import java.util.Optional;
 import java.util.Set;
 
-public class EntityImpl implements dev.akarah.quantized.api.dimension.Entity {
-    Entity entity;
+public class EntityImpl implements Entity {
+    net.minecraft.world.entity.Entity entity;
 
-    public EntityImpl(Entity entity) {
+    public EntityImpl(net.minecraft.world.entity.Entity entity) {
         this.entity = entity;
     }
 
     @Override
     public WorldPos position() {
-        return TypeUtil.worldPos(entity.getLocation());
+        return new WorldPos(
+                this.entity.getX(),
+                this.entity.getY(),
+                this.entity.getZ()
+        );
     }
 
     @Override
     public Rotation rotation() {
-        return TypeUtil.rotation(entity.getLocation());
+        return new Rotation(
+                this.entity.getYRot(),
+                this.entity.getXRot()
+        );
     }
 
     @Override
     public ResourceLocation entityType() {
-        var entityType = Registry.ENTITY_TYPE.getKey(this.entity.getType());
-        assert entityType != null;
-        return TypeUtil.resourceLocation(entityType);
+        return ResourceLocation.parse(this.entity.getType().toShortString());
     }
 
     @Override
     public Optional<Player> player() {
-        if(this.entity instanceof org.bukkit.entity.Player p) {
-            return Optional.of(new PlayerImpl(p));
+        if(this.entity instanceof ServerPlayer serverPlayer) {
+            return Optional.of(new PlayerImpl(serverPlayer));
         }
         return Optional.empty();
     }

@@ -38,6 +38,6 @@ bin/
 ### Mac OS ###
 .DS_Store
 
-### Paper Run ###
-/paper/run/
-/run/
+### Fabric Run ###
+/fabric/run/
+/fabric/.idea/

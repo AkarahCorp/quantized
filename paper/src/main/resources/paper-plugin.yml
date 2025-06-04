@@ -1,6 +1,0 @@
-name: quantized-paper
-version: '1.0'
-main: dev.akarah.quantized.paper.Main
-description: Quantized-MC API Provider
-api-version: '1.21.5'
-bootstrapper: dev.akarah.quantized.paper.Bootstrapper

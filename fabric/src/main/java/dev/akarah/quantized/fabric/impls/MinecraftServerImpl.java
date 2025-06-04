@@ -1,4 +1,4 @@
-package dev.akarah.quantized.paper;
+package dev.akarah.quantized.fabric.impls;
 
 import dev.akarah.quantized.api.scheduler.EventBus;
 import dev.akarah.quantized.api.scheduler.Scheduler;
@@ -11,11 +11,11 @@ public class MinecraftServerImpl implements MinecraftServer {
 
     @Override
     public Scheduler getScheduler() {
-        return scheduler;
+        return this.scheduler;
     }
 
     @Override
     public EventBus eventBus() {
-        return eventBus;
+        return this.eventBus;
     }
 }
