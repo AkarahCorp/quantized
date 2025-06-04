@@ -43,7 +43,7 @@ public interface DataComponentType<T> {
             return this;
         }
 
-        public SimpleType<T> build() {
+        public DataComponentType<T> build() {
             if(this.name == null) {
                 throw new IllegalArgumentException("All DataComponentTypes must have a name.");
             }

@@ -1,5 +1,8 @@
 package dev.akarah.quantized.example;
 
+import dev.akarah.quantized.api.components.BlockComponents;
+import dev.akarah.quantized.api.components.DataComponentMap;
+import dev.akarah.quantized.api.components.DataComponentType;
 import dev.akarah.quantized.api.dimension.BlockState;
 import dev.akarah.quantized.api.dimension.Player;
 import dev.akarah.quantized.api.registry.RegistryKeys;
@@ -34,7 +37,12 @@ public class EventHandlerImpl implements EventHandler {
     public static void recursionLoop(Player player) {
         player.dimension().setBlock(
                 player.position().blockPosition(),
-                BlockState.of(ResourceLocation.of("minecraft", "oak_log"))
+                BlockState.of(ResourceLocation.of("minecraft", "wheat"))
+                        .withComponents(
+                                DataComponentMap.builder()
+                                        .with(BlockComponents.AGE, 7)
+                                        .build()
+                        )
         );
         MinecraftServer.get().getScheduler().execute(() -> EventHandlerImpl.recursionLoop(player), Duration.ofMillis(100));
     }
